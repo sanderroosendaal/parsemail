@@ -2,8 +2,8 @@ package parsemail
 
 import (
 	"encoding/base64"
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
 	"net/mail"
 	"strings"
 	"testing"
@@ -266,13 +266,38 @@ So, "Hello".`,
 			htmlBody:  "<div dir=\"ltr\"><br></div>",
 			attachments: []attachmentData{
 				{
-					filename:    "unencoded.csv",
-					contentType: "application/csv",
-					unencodedData:  fmt.Sprintf("\n"+`"%s", "%s", "%s", "%s", "%s"`+"\n"+`"%s", "%s", "%s", "%s", "%s"`+"\n", "Some", "Data", "In", "Csv", "Format", "Foo", "Bar", "Baz", "Bum", "Poo"),
+					filename:      "unencoded.csv",
+					contentType:   "application/csv",
+					unencodedData: fmt.Sprintf("\n"+`"%s", "%s", "%s", "%s", "%s"`+"\n"+`"%s", "%s", "%s", "%s", "%s"`+"\n", "Some", "Data", "In", "Csv", "Format", "Foo", "Bar", "Baz", "Bum", "Poo"),
 				},
 			},
 		},
-
+		9: {
+			mailData: data4,
+			subject:  "test",
+			from: []mail.Address{
+				{
+					Name:    "Peter Foobar",
+					Address: "peter.foobar@gmail.com",
+				},
+			},
+			to: []mail.Address{
+				{
+					Name:    "",
+					Address: "dusan@kasan.sk",
+				},
+			},
+			messageID: "CACtgX4KDUEHS5XKSKeH_zEcfUUmf2vXVASxYjaaK9cCn-3zb_g@mail.gmail.com",
+			date:      parseDate("Wed, 17 Apr 2019 09:43:40 +0100"),
+			textBody:  `Testing`,
+			attachments: []attachmentData{
+				{
+					filename:    "transparentPixel.gif",
+					contentType: "image/png",
+					base64data:  "R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
+				},
+			},
+		},
 	}
 
 	for index, td := range testData {
@@ -651,6 +676,35 @@ Content-Disposition: attachment;
 "Some", "Data", "In", "Csv", "Format"
 "Foo", "Bar", "Baz", "Bum", "Poo"
 
+--f403045f1dcc043a44054c8e6bbf--
+`
+var data4 = `From: =?UTF-8?Q?Peter_Foobar?= <peter.foobar@gmail.com>
+To: dusan@kasan.sk
+Subject: test
+Message-ID: <CACtgX4KDUEHS5XKSKeH_zEcfUUmf2vXVASxYjaaK9cCn-3zb_g@mail.gmail.com>
+Date: Wed, 17 Apr 2019 09:43:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+ boundary=f403045f1dcc043a44054c8e6bbf
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--f403045f1dcc043a44054c8e6bbf
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Testing
+
+--f403045f1dcc043a44054c8e6bbf
+Content-Type: image/png;
+ name="bart.png"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="transparentPixel.gif"
+
+R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
 --f403045f1dcc043a44054c8e6bbf--
 `
 
