@@ -298,6 +298,56 @@ So, "Hello".`,
 				},
 			},
 		},
+		10: {
+			mailData: data5,
+			subject:  "Test FooBar",
+			from: []mail.Address{
+				{
+					Name:    "",
+					Address: "fooBar@baz.com",
+				},
+			},
+			to: []mail.Address{
+				{
+					Name:    "",
+					Address: "dusan@kasan.sk",
+				},
+			},
+			date:     parseDate("Wed, 23 Apr 2019 13:00:47 -0400"),
+			htmlBody: `<div><p>Lorem ipsum dolor</p></div>`,
+			attachments: []attachmentData{
+				{
+					filename:    "transparentPixel.gif",
+					contentType: "image/png",
+					base64data:  "R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
+				},
+			},
+		},
+		11: {
+			mailData: data6,
+			subject:  "Test FooBar",
+			from: []mail.Address{
+				{
+					Name:    "",
+					Address: "fooBar@baz.com",
+				},
+			},
+			to: []mail.Address{
+				{
+					Name:    "",
+					Address: "dusan@kasan.sk",
+				},
+			},
+			date:     parseDate("Wed, 23 Apr 2019 13:00:47 -0400"),
+			textBody: `Lorem ipsum dolor`,
+			attachments: []attachmentData{
+				{
+					filename:    "transparentPixel.gif",
+					contentType: "image/png",
+					base64data:  "R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
+				},
+			},
+		},
 	}
 
 	for index, td := range testData {
@@ -699,13 +749,63 @@ Testing
 
 --f403045f1dcc043a44054c8e6bbf
 Content-Type: image/png;
- name="bart.png"
+ name="transparentPixel.png"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment;
  filename="transparentPixel.gif"
 
 R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
 --f403045f1dcc043a44054c8e6bbf--
+`
+
+var data5 = `MIME-Version: 1.0
+From: fooBar@baz.com
+To: dusan@kasan.sk
+Date: Wed, 23 Apr 2019 13:00:47 -0400
+Subject: Test FooBar
+Content-Type: multipart/mixed;
+ boundary=myBoundary
+
+
+--myBoundary
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGRpdj48cD5Mb3JlbSBpcHN1bSBkb2xvcjwvcD48L2Rpdj4=
+--myBoundary
+Content-Type: image/png;
+ name="transparentPixel.png"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="transparentPixel.gif"
+
+R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
+--myBoundary--
+`
+
+var data6 = `MIME-Version: 1.0
+From: fooBar@baz.com
+To: dusan@kasan.sk
+Date: Wed, 23 Apr 2019 13:00:47 -0400
+Subject: Test FooBar
+Content-Type: multipart/mixed;
+ boundary=myBoundary
+
+
+--myBoundary
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+TG9yZW0gaXBzdW0gZG9sb3I=
+--myBoundary
+Content-Type: image/png;
+ name="transparentPixel.png"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="transparentPixel.gif"
+
+R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
+--myBoundary--
 `
 
 var rfc5322exampleA11 = `From: John Doe <jdoe@machine.example>
