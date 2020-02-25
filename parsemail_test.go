@@ -716,10 +716,10 @@ Content-Type: text/html; charset=UTF-8
 
 --f403045f1dcc043a3f054c8e6bbd--
 --f403045f1dcc043a44054c8e6bbf
-Content-Type: application/csv; 
+Content-Type: application/csv;
 	name="unencoded.csv"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; 
+Content-Disposition: attachment;
 	filename="unencoded.csv"
 
 
@@ -736,7 +736,7 @@ Date: Wed, 17 Apr 2019 09:43:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
+Content-Type: multipart/mixed;
  boundary=f403045f1dcc043a44054c8e6bbf
 Content-Language: en-US
 
