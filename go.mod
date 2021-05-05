@@ -1,3 +1,3 @@
-module github.com/EdwinLove/parsemail
+module github.com/sanderroosendaal/parsemail
 
-go 1.12
+go 1.16
